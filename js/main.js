@@ -5,62 +5,64 @@ var header = document.querySelector('header'),
   topMenu = document.querySelector('.top_menu'),
   headerHeight = header.offsetHeight,
   goTopBtn = document.querySelector('.go-top');
-  scrollAmt = 0;
-  var lastScroll = 0;
+scrollAmt = 0;
+var lastScroll = 0;
 // console.log(headerTopHeight);
 
 window.addEventListener('scroll', function () {
-  scrollAmt = window.pageYOffset;
+  scrollAmt = window.scrollY;
+  console.log(scrollAmt)
   if (scrollAmt == 0) {
     header.classList.remove('scroll-up');
-  } 
-  
-  if(lastScroll < scrollAmt){
+  }
+
+  if (lastScroll < scrollAmt) {
     header.classList.add('scroll-down');
     header.classList.remove('scroll-up');
 
-  }else if(scrollAmt > 0){
+  } else if (scrollAmt > 0) {
     header.classList.remove('scroll-down');
     header.classList.add('scroll-up');
   }
   // console.log(lastScroll)
   lastScroll = scrollAmt;
 
-  if(scrollAmt>800){
+  if (scrollAmt > 800) {
     goTopBtn.classList.add('active');
-  }else{
+  } else {
     goTopBtn.classList.remove('active');
   }
 }); //헤더고정
 
 
-goTopBtn.addEventListener('click',function(e){
-e.preventDefault();
-var goTotimer = setInterval(function () {
-  if (scrollAmt > 0) {
-    window.scrollBy(0, -80)
-  } else {
-    clearInterval(goTotimer);
-  }
-}, 10);
+goTopBtn.addEventListener('click', function (e) {
+  e.preventDefault();
+  var goTotimer = setInterval(function () {
+    if (scrollAmt > 0) {
+      window.scrollBy(0, -80)
+    } else {
+      clearInterval(goTotimer);
+    }
+  }, 10);
 });
 
-if (document.querySelector('.sub_menu')) {  
-for (i = 0; i < mainMenuli.length; i++) {
-  mainMenuli[i].addEventListener('mouseover', function(){
-     currentMenu = this.querySelector('ul li');
-     subMenuHeight = currentMenu.offsetHeight;
-     totalHeight = headerHeight + subMenuHeight;
-     
-    header.style.height = totalHeight + 'px';
-    console.log(totalHeight)
-    console.log(subMenuHeight)
-  });
-  
-    mainMenuli[i].addEventListener('mouseout', function() {
-    header.style.height = totalHeight - subMenuHeight - '24' + 'px';
-  })
-};
+if (document.querySelector('.sub_menu')) {
+  for (i = 0; i < mainMenuli.length; i++) {
+    mainMenuli[i].addEventListener('mouseover', function () {
+      currentMenu = this.querySelector('ul li');
+      if(currentMenu) {
+        subMenuHeight = currentMenu.offsetHeight;
+        totalHeight = headerHeight + subMenuHeight;
+        header.style.height = totalHeight + 'px';
+      }
+    });
+    mainMenuli[i].addEventListener('mouseout', function () {
+      if(currentMenu) {
+      header.style.height = totalHeight - subMenuHeight - '24' + 'px';
+    }
+    })
+
+  };
 }
 
 var mainSlidewrapper = document.querySelector('.slide_wrapper'),
@@ -128,7 +130,7 @@ function autoSlide() {
   }, 5000);
 }
 
- autoSlide();
+autoSlide();
 
 
 mainSlidewrapper.addEventListener('mouseover', function () {
@@ -153,23 +155,23 @@ var bestSliderWrapper = document.querySelector('.best.products_list_wrapper'),
   bestPrevBtn = document.querySelector('.best_prev'),
   bestNextBtn = document.querySelector('.best_next');
 
-  
-  
-  for (var i = 0; i < bestSlideCount; i++) {
-    bestSlides[i].style.left = i * 306 + 'px';
-  }
-  for (var i = 0; i < bestSlideCount -3; i++) {
-    bestPagerHTML += '<a herf="">' + i + '</a>';
-  }
-  bestPager.innerHTML = bestPagerHTML;
-  var bestPagerBtn = bestPager.querySelectorAll('a')
+
+
+for (var i = 0; i < bestSlideCount; i++) {
+  bestSlides[i].style.left = i * 306 + 'px';
+}
+for (var i = 0; i < bestSlideCount - 3; i++) {
+  bestPagerHTML += '<a herf="">' + i + '</a>';
+}
+bestPager.innerHTML = bestPagerHTML;
+var bestPagerBtn = bestPager.querySelectorAll('a')
 
 
 
 bestmoveSlide(0);
 
 function bestmoveSlide(idx) {
-  bestSlider.style.left = -idx * (bestSlideWidth+bestSlideMargin) + 'px'
+  bestSlider.style.left = -idx * (bestSlideWidth + bestSlideMargin) + 'px'
   bestCurrentIndx = idx;
 
   for (x = 0; x < bestPagerBtn.length; x++) {
@@ -196,9 +198,9 @@ bestPrevBtn.addEventListener('click', function (e) {
   }
 })
 
-bestPagerBtn.forEach(function(item,idx){
-  item.addEventListener('click',function(e){
-    e.preventDefault(); 
+bestPagerBtn.forEach(function (item, idx) {
+  item.addEventListener('click', function (e) {
+    e.preventDefault();
     bestmoveSlide(idx);
   });
 });
@@ -207,21 +209,21 @@ bestPagerBtn.forEach(function(item,idx){
 
 
 var mdSliderWrapper = document.querySelector('.md.products_list_wrapper'),
-mdSlider = mdSliderWrapper.querySelector('.md_product'),
-mdSlides = mdSlider.querySelectorAll('li'),
-mdCurrentIndx = 0,
-mdSlideCount = mdSlides.length,
-mdSlideWidth = 282,
-mdSlideMargin = 24,
-mdPager = document.querySelector('.md_pager'),
-mdPagerHTML = '',
-mdPrevBtn = document.querySelector('.md_prev'),
-mdNextBtn = document.querySelector('.md_next');
+  mdSlider = mdSliderWrapper.querySelector('.md_product'),
+  mdSlides = mdSlider.querySelectorAll('li'),
+  mdCurrentIndx = 0,
+  mdSlideCount = mdSlides.length,
+  mdSlideWidth = 282,
+  mdSlideMargin = 24,
+  mdPager = document.querySelector('.md_pager'),
+  mdPagerHTML = '',
+  mdPrevBtn = document.querySelector('.md_prev'),
+  mdNextBtn = document.querySelector('.md_next');
 
 for (var i = 0; i < mdSlideCount; i++) {
   mdSlides[i].style.left = i * 306 + 'px';
 }
-for (var i = 0; i < mdSlideCount-3; i++) {
+for (var i = 0; i < mdSlideCount - 3; i++) {
   mdPagerHTML += '<a herf="">' + i + '</a>';
 }
 mdPager.innerHTML = mdPagerHTML;
@@ -232,13 +234,13 @@ var mdPagerBtn = mdPager.querySelectorAll('a');
 
 mdmoveSlide(0);
 function mdmoveSlide(idx) {
-  mdSlider.style.left = -idx * (mdSlideWidth+mdSlideMargin) + 'px'
+  mdSlider.style.left = -idx * (mdSlideWidth + mdSlideMargin) + 'px'
   mdCurrentIndx = idx;
   for (x = 0; x < mdPagerBtn.length; x++) {
     mdPagerBtn[x].classList.remove('active');
   }
   mdPagerBtn[idx].classList.add('active');
-  
+
 }
 
 
@@ -255,75 +257,75 @@ mdPrevBtn.addEventListener('click', function (e) {
   e.preventDefault();
   if (mdCurrentIndx == 0) {
     mdmoveSlide(mdSlideCount - 4);
-  } else { 
+  } else {
 
     mdmoveSlide(mdCurrentIndx - 1);
   }
 })
 
 
-mdPagerBtn.forEach(function(item,idx){
-  item.addEventListener('click',function(e){
-    e.preventDefault(); 
+mdPagerBtn.forEach(function (item, idx) {
+  item.addEventListener('click', function (e) {
+    e.preventDefault();
     mdmoveSlide(idx);
+  });
 });
-});
 
 
 
-let myPopup =document.querySelector('.popup_box'),
-popupcloseBtn = document.querySelector('.popup_close'),
-oneDayCheck = document.querySelector('#oneday_close');
+let myPopup = document.querySelector('.popup_box'),
+  popupcloseBtn = document.querySelector('.popup_close'),
+  oneDayCheck = document.querySelector('#oneday_close');
 
-function checkcookie(name){
+function checkcookie(name) {
   var cookies = document.cookie.split(';');
   var visited = false;
 
-  for(ck of cookies){
-      if(ck.indexOf(name) > -1){
-          visited = true;
-      }            
+  for (ck of cookies) {
+    if (ck.indexOf(name) > -1) {
+      visited = true;
+    }
   }
-  if(visited){
-      myPopup.style.display = 'none';
-      //alert('재방문');
-  }else{
-      myPopup.style.display = 'block';
-      //alert('첫방문');
+  if (visited) {
+    myPopup.style.display = 'none';
+    //alert('재방문');
+  } else {
+    myPopup.style.display = 'block';
+    //alert('첫방문');
   }
 }
 
 checkcookie('dewycel');
 
 
-function setcookie(name, value, day){
+function setcookie(name, value, day) {
   var date = new Date();
-  date.setDate(date.getDate()+day);
-  
+  date.setDate(date.getDate() + day);
+
   var myCookie = '';
-  myCookie = `${name}=${value};Expires=${date.toUTCString()}`;   
-  
+  myCookie = `${name}=${value};Expires=${date.toUTCString()}`;
+
   document.cookie = myCookie;
   //alert('쿠키저장 성공');
 }//setcookie
 
-function deleteCookie(name,value){
-  var date = new Date(); 
-  date.setDate(date.getDate()-1);
+function deleteCookie(name, value) {
+  var date = new Date();
+  date.setDate(date.getDate() - 1);
 
   var myCookie = '';
   myCookie = name + '=' + value + ';expires=' + date.toUTCString();
 
   document.cookie = myCookie;
-}   
+}
 
 
 
-popupcloseBtn.addEventListener('click',function(){
-  if(!oneDayCheck.checked){
-    deleteCookie('dewycel','home');
-  }else{
-    setcookie('dewycel','home',1);    
+popupcloseBtn.addEventListener('click', function () {
+  if (!oneDayCheck.checked) {
+    deleteCookie('dewycel', 'home');
+  } else {
+    setcookie('dewycel', 'home', 1);
   }
   myPopup.style.display = 'none';
 });

@@ -267,14 +267,6 @@ form li:first-child {
 	margin-left: 20px;
 }
 
-.header_top .sub_menu li {
-	margin: 0 10px;
-	line-height: 35px;
-}
-
-.header_top .sub_menu li a {
-	color: #555;
-}
 
 .main_menu .menu1 {
 	transform: translateX(-55px);
@@ -324,7 +316,20 @@ form li:first-child {
 	transition: 0.3s;
 	padding: 20px;
 	margin: 0;
+	display: flex;
+	flex-wrap: wrap;
 }
+
+.header_top .sub_menu li {
+	margin: 0 10px;
+	line-height: 35px;
+	display: flex;
+}
+
+.header_top .sub_menu li a {
+	color: #555;
+}
+
 .scroll-up .header_top .sub_menu {
 	padding-top: 30px;
 	margin-top: 22px;

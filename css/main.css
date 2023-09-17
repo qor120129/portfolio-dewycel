@@ -186,7 +186,7 @@ position: relative;
 }
 
 .products .controls .best_prev{
-  background-image: url(../image/best_chevron_letf.jpg);
+  background-image: url(../image/best_chevron_letf.png);
   right: 50px;
 }
 .products .controls .best_prev:hover{
@@ -194,7 +194,7 @@ position: relative;
 }
 
 .products .controls .best_next{
-  background-image: url(../image/best_chevron_right.jpg);
+  background-image: url(../image/best_chevron_right.png);
   right: 0;
 }
 .products .controls .best_next:hover{
